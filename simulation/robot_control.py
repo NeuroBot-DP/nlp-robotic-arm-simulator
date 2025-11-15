@@ -58,11 +58,7 @@ def pick_object(robot_id, object_id, ee_link_index, arm_joints, gripper_joints, 
             p.setJointMotorControl2(robot_id, j, p.POSITION_CONTROL, a)
         slow_step(1, speed_factor=1.0)
 
-    # ---- Close gripper ----
-    for gj in gripper_joints:
-        p.setJointMotorControl2(robot_id, gj, p.POSITION_CONTROL, targetPosition=0.0, force=500)
-    slow_step(80, speed_factor=1.2)
-
+    
     # ---- Attach object (simulate grasp) ----
     cid = p.createConstraint(
         parentBodyUniqueId=robot_id,
@@ -75,6 +71,12 @@ def pick_object(robot_id, object_id, ee_link_index, arm_joints, gripper_joints, 
         childFramePosition=[0, 0, 0]
     )
     slow_step(10, speed_factor=3.0)
+
+    # ---- Close gripper ----
+    for gj in gripper_joints:
+        p.setJointMotorControl2(robot_id, gj, p.POSITION_CONTROL, targetPosition=0.0, force=500)
+    slow_step(80, speed_factor=1.2)
+
 
     # ---- Lift ----
     lift_height = 0.2

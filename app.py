@@ -224,4 +224,4 @@ def execute_command():
 if __name__ == "__main__":
     import atexit
     atexit.register(p.disconnect)
-    app.run(debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)
